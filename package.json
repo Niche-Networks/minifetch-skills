@@ -1,0 +1,13 @@
+{
+  "name": "minifetch-skills",
+  "version": "0.0.1",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Niche-Networks/minifetch-skills"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "skills-ref": "^0.1.5"
+  }
+}
