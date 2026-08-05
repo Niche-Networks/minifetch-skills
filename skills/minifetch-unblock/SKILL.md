@@ -145,7 +145,6 @@ ethical scraping practices.
 
 
 ---
-
 ## Links
 - Full API docs: https://minifetch.com/llms.txt
 - All skills: https://minifetch.com/SKILL.md
@@ -154,5 +153,4 @@ ethical scraping practices.
 - Questions or need help? Join our [Discord server](https://discord.gg/EM6ET8Dshm).
 - Feedback or bulk credits waitlist? Use our [feedback form](https://forms.gle/rkMi7T23bHJc8XFw9).
 - Follow us on X: [@minifetch](https://x.com/minifetch)
-
 

@@ -6,9 +6,9 @@ description: "Index of Minifetch's web-page extraction and technical-SEO skills.
 
 Minifetch is a hosted toolkit of web page extraction primitives. Run them as a full technical SEO audit or call one at a time for a fraction of the price — and a fraction of the tokens. No subscription. This file routes you to the right skill for your task.
 
-**Base URL:** https://minifetch.com
-**Full API docs:** https://minifetch.com/llms.txt
-**Payment setup:** See any skill file below, or jump to https://minifetch.com/llms.txt#payment
+- **Base URL:** https://minifetch.com
+- **Full API docs:** https://minifetch.com/llms.txt
+- **Payment setup:** See any skill file below, or jump to https://minifetch.com/llms.txt#payment
 
 ---
 
@@ -37,7 +37,6 @@ All `/api/v1/` endpoints also accept `/api/v1/x402/` for USDC crypto wallet paym
 
 
 ---
-
 ## Links
 - Full API docs: https://minifetch.com/llms.txt
 - All skills: https://minifetch.com/SKILL.md
@@ -46,5 +45,4 @@ All `/api/v1/` endpoints also accept `/api/v1/x402/` for USDC crypto wallet paym
 - Questions or need help? Join our [Discord server](https://discord.gg/EM6ET8Dshm).
 - Feedback or bulk credits waitlist? Use our [feedback form](https://forms.gle/rkMi7T23bHJc8XFw9).
 - Follow us on X: [@minifetch](https://x.com/minifetch)
-
 

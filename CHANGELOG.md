@@ -1,5 +1,8 @@
 # CHANGELOG
 
+1.1.0
+- trim skills sizes down, especially minifetch-technical-seo-audit
+
 1.0.0
 - skills/minifetch-overview
 - skills/minifetch-technical-seo-audit
