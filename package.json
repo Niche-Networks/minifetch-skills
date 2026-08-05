@@ -7,6 +7,9 @@
     "url": "https://github.com/Niche-Networks/minifetch-skills"
   },
   "license": "MIT",
+  "scripts": {
+    "validate": "for d in skills/*/; do skills-ref validate $d || exit 1; done"
+  },
   "dependencies": {
     "skills-ref": "^0.1.5"
   }
