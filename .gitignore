@@ -1,4 +1,6 @@
 node_modules/
+
+# skills.sh consumer-install artifacts (from running `npx skills add` in-repo)
 .agents
 .claude
 skills-lock.json
