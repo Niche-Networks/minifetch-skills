@@ -110,7 +110,7 @@ search bar and returns the same results.
 ---
 
 
-## Step 2 (Free) -- Preflight Check
+## Step 2 (Free) — Preflight Check
 Confirm the URL is fetchable before spending credits:
 ```
 curl "https://minifetch.com/api/v1/free/preflight/url-check?url=https://example.com/your-page"
