@@ -107,12 +107,12 @@ using the free preflight endpoint:
 
 Using [minifetch-api](https://www.npmjs.com/package/minifetch-api):
 ```js
-await client.preflightCheck("https://yoursite.com/your-page");
+await client.preflightCheck("https://example.com/your-page");
 ```
 
 Or from your cli:
 ```
-curl "https://minifetch.com/api/v1/free/preflight/url-check?url=https://yoursite.com/your-page"
+curl "https://minifetch.com/api/v1/free/preflight/url-check?url=https://example.com/your-page"
 ```
 
 A successful response will show:
@@ -122,7 +122,7 @@ A successful response will show:
   "results": [
     {
       "data": {
-        "url": "https://yoursite.com/your-page",
+        "url": "https://example.com/your-page",
         "allowed": true,
         "crawlDelay": 1
       }
@@ -132,7 +132,7 @@ A successful response will show:
 ```
 
 If `allowed` is still `false` after updating, check that your robots.txt is
-accessible at `https://yoursite.com/robots.txt` and has been re-deployed.
+accessible at `https://example.com/robots.txt` and has been re-deployed.
 Minifetch caches robots.txt for 24 hours, so changes may take up to a day to propagate.
 
 ---
@@ -150,7 +150,7 @@ ethical scraping practices.
 - All skills: https://minifetch.com/SKILL.md
 
 ## Contact
-- Questions or need help? Join our [Discord server](https://discord.gg/EM6ET8Dshm).
-- Feedback or bulk credits waitlist? Use our [feedback form](https://forms.gle/rkMi7T23bHJc8XFw9).
+- Questions? Need help? Join our [Discord](https://discord.gg/EM6ET8Dshm)
+- Feedback? Use our [feedback form](https://forms.gle/rkMi7T23bHJc8XFw9)
 - Follow us on X: [@minifetch](https://x.com/minifetch)
 

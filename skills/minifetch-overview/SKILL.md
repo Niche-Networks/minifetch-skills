@@ -42,7 +42,7 @@ All `/api/v1/` endpoints also accept `/api/v1/x402/` for USDC crypto wallet paym
 - All skills: https://minifetch.com/SKILL.md
 
 ## Contact
-- Questions or need help? Join our [Discord server](https://discord.gg/EM6ET8Dshm).
-- Feedback or bulk credits waitlist? Use our [feedback form](https://forms.gle/rkMi7T23bHJc8XFw9).
+- Questions? Need help? Join our [Discord](https://discord.gg/EM6ET8Dshm)
+- Feedback? Use our [feedback form](https://forms.gle/rkMi7T23bHJc8XFw9)
 - Follow us on X: [@minifetch](https://x.com/minifetch)
 
