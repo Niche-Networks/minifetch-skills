@@ -1,5 +1,8 @@
 # CHANGELOG
 
+1.2.0
+- add .claude-plugin/marketplace.json
+
 1.1.0
 - trim skills sizes down, especially minifetch-technical-seo-audit
 

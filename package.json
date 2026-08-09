@@ -1,6 +1,6 @@
 {
   "name": "minifetch-skills",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "",
   "repository": {
     "type": "git",
@@ -8,7 +8,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "validate": "for d in skills/*/; do skills-ref validate $d || exit 1; done"
+    "validate": "for d in skills/*/; do skills-ref validate $d || exit 1; done",
+    "validate:plugin": "npx --yes -p @anthropic-ai/claude-code claude plugin validate .",
+    "validate:all": "npm run validate && npm run validate:plugin"
   },
   "dependencies": {
     "skills-ref": "^0.1.5"
