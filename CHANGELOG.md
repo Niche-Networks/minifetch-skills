@@ -1,5 +1,8 @@
 # CHANGELOG
 
+1.3.0
+- trim skill sizes down again
+
 1.2.0
 - add .claude-plugin/marketplace.json
 

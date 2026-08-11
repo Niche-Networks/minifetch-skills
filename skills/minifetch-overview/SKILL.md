@@ -1,6 +1,6 @@
 ---
 name: minifetch-overview
-description: "Index of Minifetch's web-page extraction and technical-SEO skills. Use to discover what Minifetch can do and pick the right skill — a deterministic technical SEO page audit, or configuring a site's robots.txt to allow the Minifetch crawler — plus the full list of pay-per-URL endpoints and their prices. Always pay-as-you-go, no subscription."
+description: "Index of Minifetch's web-page extraction and technical-SEO skills. Use to discover what Minifetch can do and pick the right skill plus the full list of pay-per-URL extraction endpoints and their prices. Always pay-as-you-go, no subscription."
 ---
 # Minifetch Skills
 

@@ -24,7 +24,7 @@ This audit is priced **per URL** ($0.01 each, charged only on success). Before a
 
 - **Confirm scope with the user.** "Audit my site" is not a URL. Ask whether they mean one page, a specific list, or a section, then confirm before spending. Don't crawl a whole sitemap without asking.
 - **One page at a time.** For "is this page healthy?", a single audit is enough. Batch only when the user actually wants many pages.
-- **Filter cheaply before paying.** Run the free `/preflight/url-check` (Step 2) across candidate URLs to drop blocked or unreachable ones before spending.
+- **Filter cheaply before paying.** Run the free `/preflight/url-check` (Step 2) across candidate URLs to drop blocked or unreachable ones.
 - **Crawl-delay.** Minifetch respects each site's crawl-delay (default 1s between requests to a domain), so ~10 URLs takes at least ~10 seconds. This protects the site owner, don't try to parallelize around it. **If you own the site being audited**, you can go faster: set a sub-second `Crawl-delay` (ex: `Crawl-delay: 0.25`) in robots.txt, Minifetch will honor it. See the `minifetch-unblock` skill.
 
 ---
@@ -49,9 +49,8 @@ There is no account setup fee or monthly fee. Minifetch does not charge for bloc
 
 **Option 1: Credit card & API key**
 Sign up and get credits worth 25 free audits automatically: https://minifetch.com/dashboard
-No credit card required to begin. Click the "Sign up" button and verify your email address to create your account.
-Once you are signed in, use the dashboard to create your API key. Each successful fetch will be deducted from your credit balance.
-Top up for as little as $2 with your credit card.
+No credit card required to begin. Click the "Sign up" button and verify your email to create your account.
+Once you are signed in, use the dashboard to create your API key. Top up for as little as $2 with your credit card.
 Recommended for most builders.
 
 **Option 2: USDC on Base or Solana**
@@ -82,7 +81,7 @@ npx @coinbase/payments-mcp
 See: https://www.npmjs.com/package/@coinbase/payments-mcp
 Quick Start: https://docs.cdp.coinbase.com/agentic-wallet/mcp/quickstart
 
-Once the Payments MCP is installed and loaded with USDC on Base or Solana, an assistant
+Once Payments MCP is installed and loaded with USDC on Base or Solana, an assistant
 like Claude follows this sequence. Handles payment automatically:
 
 1. **Search:** call the `bazaar_search` tool with query `"Minifetch"`
@@ -123,8 +122,7 @@ const response = await client.preflightCheck("https://example.com/your-page");
 If the response includes `allowed: false`, the page is blocked by the site owner.
 If you own the site and want to allow Minifetch access, see the `minifetch-unblock` skill.
 
-Note on the `/free/` URL segment: preflight is genuinely zero-cost at this path, and
-this is the one to use in most normal workflows.
+Note on the `/free/` URL segment: preflight is genuinely zero-cost at this path.
 
 
 ---
@@ -139,7 +137,7 @@ curl "https://minifetch.com/api/v1/run/seo-page-audit?url=https://example.com.co
   -H "Authorization: Bearer [your_api_key]"
 ```
 
-Or with `minifetch-api`: https://www.npmjs.com/package/minifetch-api
+Or with `minifetch-api`:
 ```
 const response = await client.checkAndRunSeoPageAudit("https://example.com/your-page");
 ```
@@ -158,7 +156,7 @@ Every audit finding has the same shape:
 {
   "status": "pass" | "warn" | "fail",
   "expected": <expected value>,
-  ... // additional fields (value, count, length, etc.)
+  ... // addt'l fields (value, count, length, etc.)
 }
 ```
 
@@ -171,7 +169,7 @@ Pure data fields (counts, dates, dimensions) appear without `status` or `expecte
 These rules are applied deterministically. Every threshold is documented here.
 
 ### summary
-`{ pass, warn, fail }` — counts of findings with each status across the whole report.
+`{ pass, warn, fail }` — finding counts across entire report.
 
 ### responseStatusCode
 **pass** when 200; **fail** otherwise. (3xx redirects are followed before check)
@@ -180,18 +178,17 @@ These rules are applied deterministically. Every threshold is documented here.
 **pass** 0–2 hops (2 is a pass, comes back with a `note`); **warn** 3–6 hops; **fail** >6 hops. `chain` lists every hop, in order, with URL & status code. Chains >10 hops are not reachable; the request fails with a 502, so you are not charged.
 
 ### performance
-One graded finding (`ttfb`) plus one informational field (`responseTimeMs`).
 | Field | Rule |
 |---|---|
-| `ttfb.redirectTimeMs` | informational - the portion of `ttfbMs` spent on redirect hops before the final one began. |
+| `ttfb.redirectTimeMs` | info - the portion of `ttfbMs` spent on redirect hops before the final one began. |
 | `ttfb.ttfbMs` | **pass** ≤800ms; **warn** 800–1800ms; **fail** >1800ms. Includes redirects. These are Google's published thresholds. |
-| `responseTimeMs` | informational — `ttfb` plus full body download time. No status: no authoritative threshold exists. |
+| `responseTimeMs` | info — `ttfb` + full body download. No status: no authoritative threshold exists. |
 
 ### responseHeaders
 | Header | Rule |
 |---|---|
-| `Date`, `Last-Modified` | informational — no status |
-| `Link` | informational only — no status |
+| `Date`, `Last-Modified` | info — no status |
+| `Link` | info — no status |
 | `X-Robots-Tag` | **fail** if contains `noindex`; **pass** otherwise |
 | `Content-Type` | **pass** if matches `text/html`; **fail** otherwise |
 | `Cache-Control` | **pass** if present; **warn** if missing |
@@ -200,7 +197,7 @@ One graded finding (`ttfb`) plus one informational field (`responseTimeMs`).
 ### compliance
 | Field | Rule |
 |---|---|
-| `robotsTxt` | **pass** if robots.txt allows `minifetch` user agent; **fail** if disallowed (request returns 502, no charge) |
+| `robotsTxt` | **pass** if robots.txt allows `minifetch` user agent; **fail** if disallowed (returns 502, no charge) |
 | `https` | **pass** if page is served over HTTPS (checks the post-redirect URL); **fail** otherwise. `value` is `https`, `http`, or `unknown`. |
 | `mixedContent` | **pass** if 0 http:// resources; **fail** if any. Scans `src`/`href`/`data` attributes. `resources` is the first 20 offending URLs; `omitted` is any beyond. |
 
@@ -210,18 +207,18 @@ One graded finding (`ttfb`) plus one informational field (`responseTimeMs`).
 | `title` | **pass** 30–60 chars; **warn** 1–29 (short; room for keywords) or 61–70 (risks truncation); **fail** empty or >70. |
 | `description` | **pass** 70–155 chars; **warn** 1–69 (short; room for USPs/CTA) or 156–200 (risks truncation); **fail** empty or >200. |
 | `canonical` | **pass** if present, parseable, consistent; **fail** if the HTML and Link response header values disagree (`conflictWithLinkHeader: true`) or canonical is unparseable (`malformed: true`); **info** (no status) if absent; search engines self-canonicalize a page to its own URL; missing canonical only matters when page has duplicate URLs the audit can't see. Source `html`, `header`, or `both`. |
-| `canonicalMatchesSelf` | **pass** if canonical resolves to the *post-redirect* final URL (`value: true`); **warn** if points elsewhere (`value: false`); informational (a `note`, no status) when canonical is absent/ unparseable. Pointing elsewhere can be intentional for paginated, filtered, or syndicated pages: a warn, not a fail. `crossDomain` boolean is informational (does it point off-domain?). Normalization ignores www-prefix, http-vs-https, default ports, trailing slash on root path; everything else (path, query, hash, non-root trailing slashes) is significant. Relative canonicals are resolved against the URL like a browser would. |
-| `canonicalTagCount` | Separate question: not "is there one" but "are there too many" **pass** if 0 or 1 tags found; **fail** if ≥2, regardless if they agree on URL; Google may ignore rather than guess. `canonicalUrls` lists every raw href found, in document order. |
-| `robots` | **warn** if value contains `noindex`; **pass** otherwise. `noindex` is often intentional (admin pages, staging, etc) so it is warn, not fail. |
+| `canonicalMatchesSelf` | **pass** if canonical resolves to the *post-redirect* final URL (`value: true`); **warn** if points elsewhere (`value: false`); info (a `note`, no status) when canonical is absent/ unparseable. Pointing elsewhere can be intentional for paginated, filtered, or syndicated pages: a warn, not a fail. `crossDomain` boolean is informational (does it point off-domain?). Normalization ignores www-prefix, http-vs-https, default ports, trailing slash on root path; everything else (path, query, hash, non-root trailing slashes) is significant. Relative canonicals are resolved against the URL like a browser would. |
+| `canonicalTagCount` | Not "is there one" but "are there too many" **pass** if 0 or 1 found; **fail** if ≥2; Google may ignore rather than guess. `canonicalUrls` lists every raw href found, in document order. |
+| `robots` | **warn** if value contains `noindex`; **pass** otherwise. `noindex` is often intentional (admin, staging, etc) so it is warn, not fail. |
 | `lang` | **pass** if present; **warn** if missing. Attribute on top-level `<html>` tag. |
 | `viewport` | **pass** if present; **warn** if missing |
 
-### hreflang (always present; informational)
+### hreflang
 | Field | Rule |
 |---|---|
-| `count` | informational; number of hreflang tags on page |
-| `xDefault` | informational; `present: true/false` |
-| `selfReferencing` | **pass** if at least 1 entry's href matches the audited URL; **fail** otherwise. Matched against *post-redirect* final URL. |
+| `count` | info; hreflang tags on page |
+| `xDefault` | info; `present: true/false` |
+| `selfReferencing` | **pass** if at least 1 entry's href matches the audited *post-redirect* URL; **fail** otherwise.
 | `fullyQualifiedUrls` | **pass** all hrefs are absolute (`http://` or `https://`); **fail** with offending hrefs in `invalid` |
 | `inHead` | **pass** all hreflang `<link>` tags appear inside `<head>`; **warn** otherwise |
 
@@ -229,8 +226,8 @@ One graded finding (`ttfb`) plus one informational field (`responseTimeMs`).
 **pass** if at least 1 typed item is present; **warn** if none.
 - `itemCount` top-level item count
 - `@graph` arrays are expanded, each node counts as own item
-- `types` lists distinct top-level item types
-- `nestedTypes` lists supporting entity types found inside those items (ex: an author Person); informational
+- `types` distinct top-level item types
+- `nestedTypes` supporting entity types found inside those items (ex: an author Person); informational
 - `itemCount` & `types.length` can differ (2 Product items = itemCount 2, but 1 type)
 
 ### headings
@@ -253,27 +250,27 @@ Purely informational. No pass/warn/fail status.
 | `missingDimensions` | **pass** if 0; **warn** if any. Width+height attributes prevent CLS (Core Web Vitals). |
 
 ### links
-`internal.count`, `external.count`, and `total` are passthru; no status. Top-level `anchorCount` (in-page `#fragment` links) and `nofollowCount` are informational.
+`internal.count`, `external.count`, and `total` are passthru; no status. Top-level `anchorCount` (in-page `#fragment` links) and `nofollowCount` are informational only.
 
-The `internal` and `external` objects include richer detail: `internal.topInternalTargets` lists the top 10 most-linked-to internal URLs from this page along with anchor texts used for each (deduped by origin+pathname; query strings & fragments don't dilute counts).
+The `internal` and `external` objects include richer detail: `internal.topInternalTargets` lists the top 10 most-linked-to internal URLs along with anchor texts used for each (deduped by origin+pathname; query strings & fragments don't dilute counts).
 `external.topExternalDomains` lists the top 10 external domains & how many times each was linked. Use for spotting over-linking & anchor-text-diversity issues.
 
 | Field | Rule |
 |---|---|
-| `anchorCount` | informational — number of in-page `#fragment` links |
-| `nofollowCount` | informational — number of links with `rel="nofollow"` |
-| `internal.topInternalTargets` | informational — top 10 internal URLs by link frequency, with anchor text variants |
-| `external.topExternalDomains` | informational — top 10 external domains by link frequency |
+| `anchorCount` | info — number of in-page `#fragment` links |
+| `nofollowCount` | info — number of links with `rel="nofollow"` |
+| `internal.topInternalTargets` | info — top 10 internal URLs by link frequency, with anchor text variants |
+| `external.topExternalDomains` | info — top 10 external domains by link frequency |
 | `emptyLinkText` | **pass** if 0; **warn** if any. Counts links with no visible text, no wrapped image, and no `aria-label`. Icon/SVG links with `aria-label` are accessible & not counted. |
 
 ### social
 Required Open Graph: `og:title`, `og:description`, `og:image`, `og:type`.
-Twitter Card (ideal, but each falls back to Open Graph): `twitter:card`, `twitter:title`, `twitter:image`.
+Twitter Card (ideal, but each falls back to Open Graph equivalents).
 
 | Section | Rule |
 |---|---|
 | `openGraph` | **pass** if all 4 present; **warn** if 1–2 missing; **fail** if 3+ missing |
-| `openGraphUrlMatchesSelf` | **pass** if `og:url` resolves to final URL (`value: true`); **warn** if it points elsewhere (`value: false`); **fail** if `og:url` is present but unparseable (surfaced as a `note`, no value). Informational (a `note`, no status) when `og:url` is absent — social platforms fall back to the shared URL. Same normalization rules & `crossDomain` informational field as `canonicalMatchesSelf`. |
+| `openGraphUrlMatchesSelf` | **pass** if `og:url` resolves to final URL (`value: true`); **warn** if it points elsewhere (`value: false`); **fail** if `og:url` is present but unparseable (surfaced as a `note`, no value). Informational (a `note`, no status) when `og:url` is absent — social platforms fall back to the shared URL. Same normalization rules & `crossDomain` info field as `canonicalMatchesSelf`. |
 | `twitterCard` | **pass** if all 3 fields are covered; **fail** if all 3 missing; **warn** if 1–2 missing. A field is *covered* when the twitter tag is present **or** has Open Graph fallback: `twitter:title`→`og:title`, `twitter:image`→`og:image`, `twitter:card`→`og:image`. A page with OG tags passes even with no twitter-specific tags. `presentViaOpenGraphFallback` lists fields covered by OG. |
 
 ---
@@ -284,7 +281,7 @@ The audit response is structured JSON with `pass`/`warn`/`fail` findings.
 
 **Triage by status.** Filter for `fail` first, then `warn`. Pure data fields without `status` are informational.
 
-**Rendering for humans.** If presenting to an end-user rather than feeding into a pipeline, a flat one-line-per-finding summary reads better than raw JSON. Example:
+**Rendering for humans.** If presenting to an end-user, a flat one-line-per-finding summary reads better than raw JSON. Example:
 
 ```
 SEO Audit: https://example.com/your-page (pass: 6, warn: 4, fail: 1)
@@ -347,7 +344,7 @@ All non-2xx responses share this shape:
   ]
 }
 ```
-- `error.message` is a short string (e.g. `"robots blocked"`, `"invalid url"`, `"upstream too many redirects"`, `"dns lookup failed"`) — safe to match on programmatically.
+- `error.message` is a short string, safe to match.
 - `error.statusCode` is always present on error.
 - `data.url` is the post-redirect URL when known, else `null`.
 - No charge for non-2xx responses.
