@@ -60,7 +60,7 @@ Disallow: /
 
 ## Block Minifetch entirely
 
-To block Minifetch along with all other bots:
+If you wish to block Minifetch along with all other bots:
 
 ```
 User-agent: *
@@ -95,16 +95,16 @@ Here `Crawl-delay: 0.5` tells Minifetch it may fetch a page every half-second in
 
 ## Verify your robots.txt
 
-After updating your robots.txt, you can verify Minifetch can fetch your pages correctly using the free preflight endpoint:
+After updating your robots.txt, verify Minifetch can fetch your pages correctly using the free preflight endpoint. Add `&fresh=true` so the check bypasses Minifetch's 24-hour robots.txt cache and reads your just-edited file immediately:
 
 From your cli:
 ```
-curl "https://minifetch.com/api/v1/free/preflight/url-check?url=https://example.com/your-page"
+curl "https://minifetch.com/api/v1/free/preflight/url-check?url=https://example.com/your-page&fresh=true"
 ```
 
 Or using [minifetch-api](https://www.npmjs.com/package/minifetch-api):
 ```js
-await client.preflightCheck("https://example.com/your-page");
+await client.preflightCheck("https://example.com/your-page", { "fresh": true });
 ```
 
 A successful response will show:
@@ -116,14 +116,21 @@ A successful response will show:
       "data": {
         "url": "https://example.com/your-page",
         "allowed": true,
-        "crawlDelay": 1
+        "crawlDelay": 0.5,
+        "minifetchCache": {
+          "hit": false,
+          "cachedAt": "2026-08-16T18:22:10.000Z",
+          "expiresAt": "2026-08-17T18:22:10.000Z"
+        }
       }
     }
   ]
 }
 ```
 
-If `allowed` is still `false` after updating, check that your robots.txt is accessible at `https://example.com/robots.txt` and has been re-deployed. Minifetch caches robots.txt for 24 hours, so changes may take up to a day to propagate.
+The `minifetchCache` object confirms which robots.txt Minifetch used: `"hit": false` means it just re-fetched your live file (what you want right after an edit), and `"hit": true` means it served a cached result. The `cachedAt` / `expiresAt` timestamps mark that entry's ~24-hour window.
+
+If `allowed` is still `false` after updating, check that your robots.txt is accessible at `https://example.com/robots.txt` and has been re-deployed. Without `&fresh=true`, Minifetch caches robots.txt for 24 hours, so an unforced check can take up to a day to reflect your change — use `&fresh=true` (above) to confirm it right away.
 
 ---
 

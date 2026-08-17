@@ -1,5 +1,8 @@
 # CHANGELOG
 
+1.4.0
+- minifetch-unblock: include { "fresh": true } option details
+
 1.3.0
 - trim skill sizes down again
 
