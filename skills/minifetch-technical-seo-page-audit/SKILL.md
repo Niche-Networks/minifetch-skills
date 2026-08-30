@@ -179,9 +179,9 @@ The audit response is structured JSON with `pass`/`warn`/`fail` findings.
 **Rendering for humans.** If presenting to an end-user, a flat one-line-per-finding summary reads better than raw JSON. Example:
 
 ```
-SEO Audit: https://example.com/your-page (pass: 6, warn: 4, fail: 1)
+SEO Audit: https://example.com/your-page (pass: 5, warn: 4, fail: 1)
 ------------------------------
-PASS  compliance.robotsTxt
+PASS  compliance.https
 FAIL  compliance.mixedContent (found 2, expected 0)
 ...etc
 ```

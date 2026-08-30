@@ -1,5 +1,8 @@
 # CHANGELOG
 
+1.5.0
+- minifetch-technical-seo-page-audit: mv `robotsTxt` into new `proxy` block
+
 1.4.0
 - minifetch-unblock: include { "fresh": true } option details
 

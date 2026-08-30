@@ -31,9 +31,11 @@ These rules are applied deterministically. Every threshold is documented here.
 ### compliance
 | Field | Rule |
 |---|---|
-| `robotsTxt` | **pass** if robots.txt allows `minifetch` user agent; **fail** if disallowed (returns 502, no charge) |
 | `https` | **pass** if page is served over HTTPS (checks the post-redirect URL); **fail** otherwise. `value` is `https`, `http`, or `unknown`. |
 | `mixedContent` | **pass** if 0 http:// resources; **fail** if any. Scans `src`/`href`/`data` attributes. `resources` is the first 20 offending URLs; `omitted` is any beyond. |
+
+### proxy
+Provenance for how Minifetch fetched the page — not a graded finding (no `status`). Fields: `proxyType`, `proxyUrl`, `userAgent`, and `robotsTxt.allowed`.
 
 ### metadata
 | Field | Rule |
