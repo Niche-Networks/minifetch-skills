@@ -34,6 +34,8 @@ Minifetch is a hosted toolkit of web page extraction primitives. Run them as a f
 
 All `/api/v1/` endpoints also accept `/api/v1/x402/` for USDC crypto wallet payments on Base or Solana.
 
+Every endpoint accepts **GET** (params in the query string) or **POST** (params as a JSON body, `Content-Type: application/json`). Responses are identical.
+
 
 
 ---

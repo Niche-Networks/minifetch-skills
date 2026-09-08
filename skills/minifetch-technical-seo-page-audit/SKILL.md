@@ -64,6 +64,13 @@ No Minifetch account setup needed. Recommended for agents and agent builders.
 curl "https://minifetch.com/api/v1/run/seo-page-audit?url=https://example.com/your-page" \
   -H "Authorization: Bearer [your_api_key]"
 ```
+Params can also be sent as a JSON body over POST (`Content-Type: application/json`):
+```
+curl -X POST "https://minifetch.com/api/v1/run/seo-page-audit" \
+  -H "Authorization: Bearer [your_api_key]" \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://example.com/your-page"}'
+```
 
 **Option B: minifetch-api (recommended for agents & agent builders)**
 For importing Minifetch API calls into your javascript app programmatically.
@@ -90,7 +97,9 @@ like Claude follows this sequence. Handles payment automatically:
    (e.g. `https://minifetch.com/api/v1/x402/run/seo-page-audit`) to get the full
    request/response schema, an example response, current price, and both payment
    network options (Base and Solana). Do this before calling — it tells you exactly
-   what to send and what to expect back.
+   what to send and what to expect back. Each endpoint is listed twice — a GET
+   resource (params in `queryParams`) and a POST resource (params in `body`); they
+   behave identically, so use whichever the schema you picked specifies.
 3. **Call:** use `make_http_request_with_x402` with the `baseURL`/`path`/`method`/
    `queryParams` from step 2's schema. See Step 3 below for the exact call shape.
 
