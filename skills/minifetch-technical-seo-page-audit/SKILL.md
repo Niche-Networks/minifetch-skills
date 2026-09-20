@@ -72,7 +72,7 @@ curl -X POST "https://minifetch.com/api/v1/run/seo-page-audit" \
   -d '{"url":"https://example.com/your-page"}'
 ```
 
-**Option B: minifetch-api (recommended for agents & agent builders)**
+**Option B: minifetch-api npm package (recommended for agents & agent builders)**
 For importing Minifetch API calls into your javascript app programmatically.
 Handles payment; no manual auth header or x402 handshake needed.
 The README Quick Start section details how to initialize the client: https://www.npmjs.com/package/minifetch-api
@@ -123,7 +123,7 @@ Confirm the URL is fetchable before spending credits:
 ```
 curl "https://minifetch.com/api/v1/free/preflight/url-check?url=https://example.com/your-page"
 ```
-Or with minifetch-api (the `checkAndExtract*` methods run this automatically before each paid fetch).
+Or with the minifetch-api npm package (the `checkAndExtract*` methods run this automatically before each paid fetch).
 You can also call it as a standalone function:
 ```js
 const response = await client.preflightCheck("https://example.com/your-page");

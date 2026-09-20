@@ -1,10 +1,10 @@
 ---
 name: minifetch-overview
-description: "Index of Minifetch's web-page extraction and technical-SEO skills. Use to discover what Minifetch can do and pick the right skill plus the full list of pay-per-URL extraction endpoints and their prices. Always pay-as-you-go, no subscription."
+description: "Index of Minifetch's search, scrape, extract and technical SEO skills. Full list of endpoints and their prices. Use to discover what Minifetch can do."
 ---
 # Minifetch Skills
 
-Minifetch is a hosted toolkit of web page extraction primitives. Run them as a full technical SEO audit or call one at a time for a fraction of the price — and a fraction of the tokens. No subscription. This file routes you to the right skill for your task.
+Minifetch is a hosted toolkit for web developers and AI agents. Always pay-per-fetch, no subscription. This file routes you to the right skill for your task.
 
 - **Base URL:** https://minifetch.com
 - **Full API docs:** https://minifetch.com/llms.txt
@@ -21,16 +21,17 @@ Minifetch is a hosted toolkit of web page extraction primitives. Run them as a f
 
 ---
 
-## API Endpoints at a Glance (pay-as-you-go)
+## API Endpoints at a Glance (pay-per-fetch)
 
 | Endpoint | Price | Best for |
 |---|---|---|
+| `/api/v1/search/keyword` | undefined | Search by keyword (via Ceramic.ai) |
 | `/api/v1/free/preflight/url-check` | Free | Check robots.txt before fetching |
-| `/api/v1/run/seo-page-audit` | $0.01 | Run SEO audit on a web page |
 | `/api/v1/extract/url-metadata` | $0.002 | Full structured SEO metadata |
 | `/api/v1/extract/url-links` | $0.002 | All links + links metadata |
 | `/api/v1/extract/url-preview` | $0.002 | Check how page unfurls when shared on social platforms, chat apps, and AI channels |
 | `/api/v1/extract/url-content` | $0.002 | Check how page converts to clean markdown without nav, ads, scripts |
+| `/api/v1/run/seo-page-audit` | $0.01 | Run SEO audit on a web page |
 
 All `/api/v1/` endpoints also accept `/api/v1/x402/` for USDC crypto wallet payments on Base or Solana.
 
