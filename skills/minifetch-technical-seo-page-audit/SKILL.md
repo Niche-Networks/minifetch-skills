@@ -230,7 +230,7 @@ Every audit response includes a `minifetchCache` object:
 - 502 Bad Gateway — Target URL 403 block or DNS error
 - 503 Service Unavailable — Target URL timeout or fetch error. Try again later.
 
-All non-2xx responses share this shape:
+A failed fetch returns this shape:
 ```json
 {
   "success": false,
@@ -241,17 +241,34 @@ All non-2xx responses share this shape:
         "url": "https://example.com/your-page"
       },
       "error": {
-        "message": "robots blocked",
-        "statusCode": 502
+        "message": "upstream forbidden",
+        "statusCode": 403
       }
     }
   ]
 }
 ```
-- `error.message` is a short string, safe to match.
-- `error.statusCode` is always present on error.
+- `error.message` on a failed fetch is exactly one of the strings below in the response body. The minifetch-api client embeds it in a longer error message, so match with a contains check, not equality.
+- `invalid url` (400): missing, malformed or unsupported url
+- `robots blocked` (*) (502): robots.txt disallows the minifetch user agent
+- `upstream forbidden` (*) (502): target returned 403
+- `upstream rate limited` (*) (502): target returned 429
+- `upstream unavailable` (*) (502): target returned 503
+- `upstream not found` (502): target returned 404
+- `upstream bad request` (502): target returned 400
+- `upstream unauthorized` (502): target returned 401
+- `upstream payment required` (502): target returned 402 (paywalled)
+- `upstream error` (502): any other target 4xx/5xx, or the connection failed
+- `upstream too many redirects` (502): redirect chain too long
+- `dns lookup failed` (502): domain does not resolve
+- `queue timeout` (503): timed out waiting on the site's crawl-delay
+- `fetch error` (503): target timed out or the fetch failed
+- `proxy provider error` (503): the external proxy provider failed (/proxy/ routes only)
+- `server error` (500): unclassified failure
+- Marked (*): the target blocked Minifetch. On the /extract endpoints, retry via the /proxy/ routes.
+- `error.statusCode` is the TARGET's HTTP status when it answered (ex: 403), not Minifetch's. Absent otherwise (ex: `robots blocked`).
 - `data.url` is the post-redirect URL when known, else `null`.
-- No charge for non-2xx responses.
+- Error responses are never charged.
 
 
 ---

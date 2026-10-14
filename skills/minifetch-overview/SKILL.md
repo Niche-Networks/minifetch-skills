@@ -4,7 +4,7 @@ description: "Index of Minifetch's search, scrape, extract and technical SEO ski
 ---
 # Minifetch Skills
 
-Minifetch is a hosted toolkit for web developers and AI agents. Always pay-per-fetch, no subscription. This file routes you to the right skill for your task.
+Search, scrape, extract & SEO audit web pages. Minifetch is a hosted toolkit for developers and AI agents. Always pay-per-fetch, no subscription. This file routes you to the right skill for your task.
 
 - **Base URL:** https://minifetch.com
 - **Full API docs:** https://minifetch.com/llms.txt
@@ -25,17 +25,21 @@ Minifetch is a hosted toolkit for web developers and AI agents. Always pay-per-f
 
 | Endpoint | Price | Best for |
 |---|---|---|
-| `/api/v1/search/keyword` | undefined | Search by keyword (via Ceramic.ai) |
+| `/api/v1/search/keyword` | $0.002 | Search by keyword (via Ceramic.ai) |
 | `/api/v1/free/preflight/url-check` | Free | Check robots.txt before fetching |
 | `/api/v1/extract/url-metadata` | $0.002 | Full structured SEO metadata |
 | `/api/v1/extract/url-links` | $0.002 | All links + links metadata |
-| `/api/v1/extract/url-preview` | $0.002 | Check how page unfurls when shared on social platforms, chat apps, and AI channels |
+| `/api/v1/extract/url-preview` | $0.001 | Check how page unfurls when shared on social platforms, chat apps, and AI channels |
 | `/api/v1/extract/url-content` | $0.002 | Check how page converts to clean markdown without nav, ads, scripts |
 | `/api/v1/run/seo-page-audit` | $0.01 | Run SEO audit on a web page |
+| `/api/v1/proxy/extract/{endpoint}` | native + $0.001 | Any `/extract` endpoint via external rotating proxy, for pages that block Minifetch. Does not check robots.txt |
+| `/api/v1/proxy/render/extract/{endpoint}` | native + $0.002 | Same, plus JavaScript rendering |
 
 All `/api/v1/` endpoints also accept `/api/v1/x402/` for USDC crypto wallet payments on Base or Solana.
 
 Every endpoint accepts **GET** (params in the query string) or **POST** (params as a JSON body, `Content-Type: application/json`). Responses are identical.
+
+`/url-check` returns `allowed: false` and the site is not yours? Use the `/proxy/` routes. Details: https://minifetch.com/llms.txt
 
 
 
