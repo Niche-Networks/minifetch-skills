@@ -251,6 +251,7 @@ A failed fetch returns this shape:
 - `error.message` on a failed fetch is exactly one of the strings below in the response body. The minifetch-api client embeds it in a longer error message, so match with a contains check, not equality.
 - `invalid url` (400): missing, malformed or unsupported url
 - `robots blocked` (*) (502): robots.txt disallows the minifetch user agent
+- `robots unreachable` (*) (502): robots.txt could not be fetched (5xx, network or TLS error), so treated as disallow per RFC 9309
 - `upstream forbidden` (*) (502): target returned 403
 - `upstream rate limited` (*) (502): target returned 429
 - `upstream unavailable` (*) (502): target returned 503

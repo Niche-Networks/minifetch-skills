@@ -20,9 +20,10 @@ minifetch/1.0 (+https://minifetch.com/site-owner-faq)
 
 Minifetch matches on the `minifetch` token, so any `User-agent` directive containing `minifetch` (case-insensitive) will be picked up correctly.
 
-- If your robots.txt is missing or returns an error, Minifetch defaults to **allowed**.
+- If your robots.txt is missing (404 or another 4xx), Minifetch defaults to **allowed**.
 - If it returns a status code 403, 418, or 429, Minifetch treats the entire site as **blocked**.
-- Paid API requests to that URL return 502 (no charge).
+- If your server errors (5xx) or can't be reached, Minifetch treats the site as **blocked** (per RFC 9309) and retries after a few minutes.
+- Paid API requests to a blocked URL return 502 (no charge).
 
 ---
 
