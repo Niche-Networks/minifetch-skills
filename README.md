@@ -21,8 +21,9 @@ Add this repo as a plugin marketplace, then install the bundle:
 
 ## Skills
 - **minifetch-overview** — index & router: what Minifetch can do and which skill to reach for.
-- **minifetch-technical-seo-page-audit** — deterministic technical SEO audit of a single page, with documented pass/warn/fail thresholds. No black-box scoring.
 - **minifetch-unblock** — allow the Minifetch crawler via robots.txt (for site owners).
+- **minifetch-technical-seo-page-audit** — deterministic technical SEO audit of a single page, with documented pass/warn/fail thresholds.
+- **minifetch-webiste-migration-seo-checklist** - website migration SEO checklist + bulk redirect checker
 
 ## Links
 - Full API docs: https://minifetch.com/llms.txt

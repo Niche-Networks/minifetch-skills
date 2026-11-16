@@ -4,7 +4,9 @@ description: "Configure a site's robots.txt to allow (or block) the Minifetch cr
 ---
 # Minifetch Skill: Allow Minifetch Access via robots.txt
 
-This skill is for **site owners** who want to explicitly allow Minifetch to fetch their pages while working with the Minifetch API.
+This skill is for **site owners** and their AI assistants who want to explicitly allow Minifetch to fetch their pages.
+If `/preflight/url-check` returns `allowed: false` and the user doesn't control the site, use the rotating external proxy endpoints instead: see the "Proxy Routes (Paid)" section of https://minifetch.com/llms.txt. They don't check robots.txt and cost more.
+If the user controls the site, this skill shows how to allow Minifetch while keeping other bots blocked, so the cheaper native `/extract` endpoints work.
 
 **Base URL:** https://minifetch.com
 
@@ -18,7 +20,7 @@ Minifetch checks your robots.txt before fetching its pages using your site's use
 minifetch/1.0 (+https://minifetch.com/site-owner-faq)
 ```
 
-Minifetch matches on the `minifetch` token, so any `User-agent` directive containing `minifetch` (case-insensitive) will be picked up correctly.
+Minifetch matches on the `minifetch` token, so any `User-agent` directive in your robots.txt containing `minifetch` (case-insensitive) will be picked up correctly.
 
 - If your robots.txt is missing (404 or another 4xx), Minifetch defaults to **allowed**.
 - If it returns a status code 403, 418, or 429, Minifetch treats the entire site as **blocked**.
@@ -131,7 +133,7 @@ A successful response will show:
 
 The `minifetchCache` object confirms which robots.txt Minifetch used: `"hit": false` means it just re-fetched your live file (what you want right after an edit), and `"hit": true` means it served a cached result. The `cachedAt` / `expiresAt` timestamps mark that entry's ~24-hour window.
 
-If `allowed` is still `false` after updating, check that your robots.txt is accessible at `https://example.com/robots.txt` and has been re-deployed. Without `&fresh=true`, Minifetch caches robots.txt for 24 hours, so an unforced check can take up to a day to reflect your change — use `&fresh=true` (above) to confirm it right away.
+If `allowed` is still `false` after updating, check that your robots.txt is accessible at `https://example.com/robots.txt`, has been re-deployed, and is under 500 KB (512,000 bytes) in size. Without `&fresh=true`, Minifetch caches robots.txt for 24 hours, so an unforced check can take up to a day to reflect your change — use `&fresh=true` (above) to confirm it right away.
 
 ---
 

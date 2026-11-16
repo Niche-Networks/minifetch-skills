@@ -9,7 +9,7 @@ These rules are applied deterministically. Every threshold is documented here.
 **pass** when 200; **fail** otherwise. (3xx redirects are followed before check)
 
 ### redirects
-**pass** 0–2 hops (2 is a pass, comes back with a `note`); **warn** 3–6 hops; **fail** >6 hops. `chain` lists every hop, in order, with URL & status code. Chains >10 hops fail with a 502, so you are not charged.
+**pass** 0–1 hops (`expected: "0-1"`); 2 hops also passes, with a `note`; **warn** 3–6 hops; **fail** >6 hops. `chain` lists every hop, in order, with URL & status code. Chains >10 hops fail with a 502, so you are not charged.
 
 ### performance
 | Field | Rule |

@@ -142,7 +142,7 @@ Note on the `/free/` URL segment: preflight is genuinely zero-cost at this path.
 
 From your CLI:
 ```
-curl "https://minifetch.com/api/v1/run/seo-page-audit?url=https://example.com.com/your-page" \
+curl "https://minifetch.com/api/v1/run/seo-page-audit?url=https://example.com/your-page" \
   -H "Authorization: Bearer [your_api_key]"
 ```
 
