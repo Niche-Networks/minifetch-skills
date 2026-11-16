@@ -19,7 +19,7 @@ Search, scrape, extract & SEO audit web pages. Minifetch is a hosted toolkit for
 |---|---|
 | Allow Minifetch to access my site via robots.txt | `minifetch-unblock` |
 | Audit technical SEO signals on a single web page | `minifetch-technical-seo-page-audit` |
-| Migrate a website without losing SEO: website migration SEO checklist + bulk redirect checker | `minifetch-website-migration-seo-checklist` |
+| Migrate a website without losing SEO | `minifetch-website-migration-seo-checklist` |
 
 ---
 

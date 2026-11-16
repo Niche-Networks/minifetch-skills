@@ -4,7 +4,7 @@ description: "How to migrate a website without losing SEO. Bulk redirect checker
 ---
 # Minifetch Skill: Website Migration SEO Checklist + Bulk Redirect Checker
 
-Verifies a redirect map row by row and returns pass/ warn/ fail per row. Every rule is documented below.
+Learn how to migrate a website without losing SEO. Verifies a redirect map row by row and returns pass/ warn/ fail per row. Every rule is documented below.
 
 ---
 
